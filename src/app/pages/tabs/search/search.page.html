@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="flexbox--row">
+      <ion-searchbar #searchBar
+                     class="ion-no-padding rc-padding-sm"
+                     type="text"
+                     animated="true"
+                     mode="ios"
+                     debounce="1000"
+                     (ionChange)="onSearch($event)"></ion-searchbar>
+      <ion-button *ngIf="segment === 0"
+                  class="ion-no-padding rc-padding-sm"
+                  color="medium"
+                  fill="clear"
+                  size="large"
+                  (click)="presentSearchPopover()">
+        <ion-icon name="funnel">
+        </ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher #refresher
+                 slot="fixed"
+                 (ionRefresh)="refresh()">
+    <ion-refresher-content pullingIcon="arrow-down"
+                           pullingText="Pull to refresh"
+                           refreshingSpinner="dots"
+                           refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged()"
+                 [(ngModel)]="segment">
+      <ion-segment-button value="0">
+        <ion-icon name="list-box"></ion-icon>
+        <ion-label>by Name</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-icon name="list-box"></ion-icon>
+        <ion-label>by Ingredients</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-icon name="person"></ion-icon>
+        <ion-label>by Username</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-slides #slides
+              (ionSlideDidChange)="slideChanged()">
+    <ion-slide id="recipes-slide"
+               class="ion-padding">
+      <rc-matrix *ngIf="recipesLoadedByName"
+                 [items]="searchedRecipesByName"
+                 [cols]="2"
+                 (onItemClick)="presentRecipeModal($event)"></rc-matrix>
+    </ion-slide>
+    <ion-slide id="ingredients-slide"
+               class="ion-padding">
+      <rc-matrix *ngIf="recipesLoadedByIngredient"
+                 [items]="searchedRecipesByIngredient"
+                 [cols]="2"
+                 (onItemClick)="presentRecipeModal($event)"></rc-matrix>
+    </ion-slide>
+    <ion-slide id="profiles-slide"
+               class="ion-padding">
+      <ion-grid *ngIf="profilesLoaded">
+        <ion-row *ngFor="let userInfo of searchedProfiles">
+          <ion-col>
+            <rc-profile-overview [userInfo]="userInfo"></rc-profile-overview>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

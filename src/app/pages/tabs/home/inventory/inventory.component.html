@@ -1,0 +1,28 @@
+<rc-card class="ion-padding"
+         title="FRIDGE"
+         icon="beer"
+         [items]="itemsFridge"
+         [units]="units"
+         (reloadData)="onReloadData($event)">
+</rc-card>
+<rc-card class="ion-padding"
+         title="FREEZER"
+         icon="snow"
+         [items]="itemsFreezer"
+         [units]="units"
+         (reloadData)="onReloadData($event)">
+</rc-card>
+<rc-card class="ion-padding"
+         title="PANTRY"
+         icon="basket"
+         [items]="itemsPantry"
+         [units]="units"
+         (reloadData)="onReloadData($event)">
+</rc-card>
+<rc-card class="ion-padding"
+         title="OTHERS"
+         icon="albums"
+         [items]="itemsOther"
+         [units]="units"
+         (reloadData)="onReloadData($event)">
+</rc-card>

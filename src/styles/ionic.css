@@ -1,0 +1,20 @@
+ion-header,
+ion-content,
+ion-footer,
+ion-toolbar,
+ion-item,
+ion-item-divider {
+  --background: var(--ion-color-light);
+}
+
+ion-item {
+  --inner-padding-end: 0;
+}
+
+.list-md {
+  padding: 0;
+}
+
+.header-md:after {
+  display: none;
+}

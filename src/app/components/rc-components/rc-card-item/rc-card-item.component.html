@@ -1,0 +1,118 @@
+<div class="flexbox--row--space-between">
+  <ion-reorder class="rc-card__container__item__reorder swiper-no-swiping"></ion-reorder>
+  <ion-label>
+    <ion-text>{{ item.name }}</ion-text>
+  </ion-label>
+  <ion-icon *ngIf="itemAboutToExpire !== 1"
+            class="rc-card__header__icon"
+            [color]="itemAboutToExpire === 0 ? 'warning' : 'danger'"
+            name="alert"></ion-icon>
+  <ion-input style="text-align: right;"
+             type="number"
+             [min]="0"
+             [(value)]="item.quantity"
+             (ionChange)="quantityUpdate($event)"></ion-input>
+  <ion-label>{{ item.unit }}</ion-label>
+  <ion-button class="rc-card__header__arrow swiper-no-swiping"
+              fill="clear"
+              size="small"
+              (click)="itemOnDisplay()">
+    <ion-icon [name]="openItem ? 'arrow-down' : 'arrow-back'"></ion-icon>
+  </ion-button>
+</div>
+<div *ngIf="openItem"
+     class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="12"
+               size-sm="8"
+               size-md="10"
+               size-lg="10">
+        <ion-range class="swiper-no-swiping ion-no-padding"
+                   [value]="item.quantity"
+                   [min]="rangeMin"
+                   [max]="rangeMax"
+                   (ionChange)="quantityUpdate($event)"
+                   pin>
+        </ion-range>
+      </ion-col>
+      <ion-col class="flexbox"
+               size-xs="12"
+               size-sm="4"
+               size-md="2"
+               size-lg="2">
+        <ion-select style="width: 100%;"
+                    [(value)]="item.unit"
+                    (ionChange)="unitUpdate($event)">
+          <ion-select-option *ngFor="let unit of units"
+                             [value]="unit">
+            {{ unit }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="flexbox">
+        <ionic-selectable itemValueField="id"
+                          itemTextField="name"
+                          canSearch="true"
+                          [(ngModel)]="ingredient"
+                          (onSearch)="onSearchIngredients($event)">
+        </ionic-selectable>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="flexbox">
+        <ion-datetime style="width: 100%;"
+                      displayFormat="DD MM YYYY"
+                      placeholder="No expiration date"
+                      [(value)]="item.expirationDate"
+                      [min]="today"
+                      [max]="2100"
+                      (ionChange)=dateUpdate($event)></ion-datetime>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding">
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        (click)="moveTo('0')">
+          <ion-icon name="beer"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        (click)="moveTo('1')">
+          <ion-icon name="snow"> </ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        (click)="moveTo('2')">
+          <ion-icon name="basket"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        (click)="moveTo('3')">
+          <ion-icon name="albums"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="danger"
+                    expand="block"
+                    (click)="onDeleteProduct()">
+          DELETE
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary"
+                    expand="block"
+                    (click)="onUpdateProduct()">
+          ACCEPT
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

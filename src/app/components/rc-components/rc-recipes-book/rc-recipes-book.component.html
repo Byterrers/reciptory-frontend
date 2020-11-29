@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Recipes Book
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <rc-matrix *ngIf="dataLoaded"
+             [items]="recipesBook.recipes"
+             [cols]="2"
+             (onItemClick)="onPresentRecipeModal($event)">
+    </rc-matrix>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block"
+                    color="light"
+                    (click)="onClose()">
+          CLOSE
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

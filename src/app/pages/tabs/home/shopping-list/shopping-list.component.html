@@ -1,0 +1,56 @@
+<ion-grid>
+  <ion-row>
+    <ion-col class="flexbox">
+      <ion-button size="default"
+                  shape="round"
+                  fill="solid"
+                  [disabled]="isSavingDisabled()"
+                  (click)="onShoppingListSave()">
+        SAVE SHOPPING LIST
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let item of userInfo.userShoppingLists; let i = index">
+    <ion-col>
+      <ion-item class="rc-shopping-list__item">
+        <ion-input type="text"
+                   [(ngModel)]="shoppingList[i]"
+                   (ionInput)="onIonInput($event, i)"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size-xs="12"
+             size-sm="2"
+             size-md="2"
+             size-lg="1"
+             class="flexbox">
+      <ion-fab-button class="ion-no-padding"
+                      size="small"
+                      color="danger"
+                      (click)="onRemoveItem($event, i)">
+        <ion-icon name="remove"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item class="rc-shopping-list__item">
+        <ion-input #newItemInput
+                   type="text"
+                   autocapitalize="on"
+                   placeholder="New item..."></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col class="flexbox"
+             size-xs="12"
+             size-sm="2"
+             size-md="2"
+             size-lg="1">
+      <ion-fab-button class="ion-no-padding"
+                      size="small"
+                      [disabled]="isAddingDisabled()"
+                      (click)="onAddItem($event)">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

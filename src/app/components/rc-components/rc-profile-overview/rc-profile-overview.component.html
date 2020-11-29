@@ -1,0 +1,11 @@
+<ion-item class="ion-no-padding"
+          [routerLink]="['/app/public-profile', userInfo.userId]">
+  <div class="rc-profile-overview">
+    <img style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.75);"
+         [src]="getAvatar(userInfo.avatar)" />
+    <div class="rc-profile-overview__text">
+      <p class="rc-profile-overview__username">{{ userInfo.username }}</p>
+      <p class="rc-profile-overview__details">{{ userInfo.name }}</p>
+    </div>
+  </div>
+</ion-item>

@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="productsForm"
+        (submit)="onSubmit()">
+    <div *ngFor="let product of products.controls; let i = index"
+         class="rc-card ion-margin"
+         formArrayName="products">
+      <div class="rc-card__header">
+        <ion-title *ngIf="multiple"
+                   class="rc-card__header__title ion-no-padding">
+          <ion-text>Product {{ i + 1 }}</ion-text>
+        </ion-title>
+      </div>
+      <div class="rc-card__container flexbox--column"
+           [formGroupName]="i">
+        <ion-item>
+          <ion-label position="floating">
+            Name
+          </ion-label>
+          <ion-input type="text"
+                     formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            Quantity
+          </ion-label>
+          <ion-input type="number"
+                     min="0"
+                     formControlName="quantity">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            Unit
+          </ion-label>
+          <ion-select style="width: 100%;"
+                      formControlName="unit">
+            <ion-select-option *ngFor="let unit of units"
+                               [value]="unit">
+              {{ unit }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            Ingredient
+          </ion-label>
+          <ionic-selectable itemValueField="id"
+                            itemTextField="name"
+                            canSearch="true"
+                            formControlName="ingredient"
+                            (onSearch)="onSearchIngredients($event)">
+          </ionic-selectable>
+        </ion-item>
+        <ion-item>
+          <ion-datetime class="ion-no-padding"
+                        displayFormat="DD MM YYYY"
+                        placeholder="No expiration date"
+                        [min]="today"
+                        [max]="2100"
+                        formControlName="expirationDate"></ion-datetime>
+        </ion-item>
+      </div>
+      <div class="rc-card__footer flexbox">
+        <ion-fab-button *ngIf="multiple"
+                        size="small"
+                        color="danger"
+                        (click)="removeProduct(i)">
+          <ion-icon name="remove"></ion-icon>
+        </ion-fab-button>
+      </div>
+    </div>
+  </form>
+  <ion-grid>
+    <ion-row class="ion-padding">
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        [color]="fridge ? 'secondary' : 'primary'"
+                        [disabled]="fridge"
+                        (click)="placeUpdate(0)">
+          <ion-icon name="beer"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        [color]="freezer ? 'secondary' : 'primary'"
+                        [disabled]="freezer"
+                        (click)="placeUpdate(1)">
+          <ion-icon name="snow"> </ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        [color]="pantry ? 'secondary' : 'primary'"
+                        [disabled]="pantry"
+                        (click)="placeUpdate(2)">
+          <ion-icon name="basket"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col class="flexbox">
+        <ion-fab-button expand="block"
+                        [color]="others ? 'secondary' : 'primary'"
+                        [disabled]="others"
+                        (click)="placeUpdate(3)">
+          <ion-icon name="albums">
+          </ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button color="light"
+                    expand="block"
+                    (click)="onClose()">
+          CANCEL
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <form [formGroup]="productsForm"
+              (submit)="onSubmit()">
+          <ion-button expand="block"
+                      type="submit"
+                      [disabled]="!productsForm.valid  || !productsForm.dirty">
+            ACCEPT
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

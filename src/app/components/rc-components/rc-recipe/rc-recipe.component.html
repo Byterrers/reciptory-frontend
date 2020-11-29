@@ -1,0 +1,213 @@
+<ion-content>
+  <ion-grid *ngIf="dataLoaded">
+    <ion-row>
+      <ion-col class="rc-recipe__header flexbox ion-no-padding">
+        <img [src]="getImage(recipe.image)" />
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding">
+      <ion-col>
+        <h2>{{ recipe.name }}</h2>
+      </ion-col>
+      <ion-col *ngIf="recipe.isCopy">
+        <ion-button fill="outline"
+                    (click)="presentRecipeModal()">
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="flexbox">
+        <ion-button color="dark"
+                    fill="clear"
+                    size="large"
+                    (click)="presentRecipesBooksPopover()">
+          <ion-icon name="bookmark"></ion-icon>
+        </ion-button>
+        <ion-button color="dark"
+                    fill="clear"
+                    size="large"
+                    [color]="recipe.shared ? 'secondary' : 'dark'"
+                    [disabled]="recipe.authorId !== userId"
+                    (click)="shareRecipe()">
+          <ion-icon name="share"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col class="flexbox">
+        <h3>{{ recipe.rating | number: '1.0-1' }}/5</h3>
+        <ion-icon style="font-size:24px color"
+                  name="star"></ion-icon>
+      </ion-col>
+      <ion-col class="flexbox">
+        <ion-range class="swiper-no-swiping"
+                   value="item.quantity"
+                   debounce="1500"
+                   min="0"
+                   max="5"
+                   step="1"
+                   (ionChange)="rateRecipe($event)"
+                   snaps>
+        </ion-range>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged()"
+                 [(ngModel)]="segment">
+      <ion-segment-button value="0">
+        <ion-label>Recipe</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-label>Reviews</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-slides #slides
+              (ionSlideDidChange)="slideChanged()">
+    <ion-slide class="flexbox--column">
+      <ion-grid *ngIf="dataLoaded"
+                class="fullwidth ion-padding">
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h4><strong>Information</strong></h4>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h6>Cooking time:</h6>
+          </ion-col>
+          <ion-col class="ion-text-end">
+            <h6>{{ recipe.cookingTime }}</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h4><strong>Ingredients</strong></h4>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let ingredient of recipe.ingredients">
+          <ion-col class="ion-text-start">
+            <h6>{{ ingredient.ingredient.name }}</h6>
+          </ion-col>
+          <ion-col class="ion-text-end">
+            <h6>{{ ingredient.quantity + ingredient.unit }}</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h4><strong>Steps</strong></h4>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let step of recipe.steps">
+          <ion-col class="ion-text-start">
+            <h6>- {{ step }}</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h4><strong>Classification</strong></h4>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h5><strong>Preferences</strong></h5>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let preference of recipe.preferences">
+          <ion-col class="ion-text-start">
+            <h6>{{ preference.name }}</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h5><strong>Allergies</strong></h5>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let allergie of recipe.allergies">
+          <ion-col class="ion-text-start">
+            <h6>{{ allergie.name }}</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h5><strong>Nutrients</strong></h5>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let nutrient of recipe.nutrients">
+          <ion-col class="ion-text-start">
+            <h6>{{ nutrient.name }}</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-start">
+            <h4><strong>Tags</strong></h4>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let tag of recipe.tags">
+          <ion-col class="ion-text-start">
+            <h6>{{ tag }}</h6>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <ion-grid *ngIf="dataLoaded"
+                class="fullwidth ion-no-padding">
+        <ion-row class="ion-padding">
+          <ion-col class="ion-padding-horizontal">
+            <ion-item class="swiper-no-swiping fullwidth">
+              <ion-textarea #commentTextarea
+                            placeholder="Add a comment..."
+                            auto-grow="true"
+                            [(ngModel)]="commentText">
+              </ion-textarea>
+              <ion-button class="ion-no-padding"
+                          fill="clear"
+                          color="primary"
+                          size="large"
+                          [disabled]="!commentText"
+                          (click)="sendComment()">
+                <ion-icon name="send"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-horizontal"
+                 *ngFor="let comment of recipe.comments">
+          <ion-col class="ion-padding-horizontal">
+            <div class="rc-card">
+              <div class="rc-card__header flexbox--row--justify-start">
+                <ion-label>
+                  <h5> <strong> {{ comment.username }} </strong> </h5>
+                </ion-label>
+              </div>
+              <div class="rc-card__container--bordered">
+                <div class="flexbox--row--justify-start">
+                  <img style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%;"
+                       class="rc-padding-sm"
+                       [src]="getAvatar(comment.avatar)">
+                  <ion-label style="overflow: hidden"
+                             class="rc-padding-sm">
+                    <h6>{{ comment.content }}</h6>
+                  </ion-label>
+                </div>
+              </div>
+              <div class="rc-card__footer"></div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block"
+                    color="light"
+                    (click)="onClose()">CLOSE</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

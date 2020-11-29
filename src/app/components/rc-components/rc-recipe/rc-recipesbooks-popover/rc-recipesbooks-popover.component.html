@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="flexbox"
+               size="small">Your books</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let recipesBook of recipesBooks"
+              lines="none"
+              button="true"
+              (click)="saveRecipeOnBook(recipesBook.id)">
+      <h6>{{ recipesBook.name }}</h6>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-button color="medium"
+              fill="clear"
+              expand="block"
+              (click)="presentRecipesBookModal()">
+    <ion-icon name="add-circle-outline"
+              size="large"></ion-icon>
+  </ion-button>
+</ion-footer>

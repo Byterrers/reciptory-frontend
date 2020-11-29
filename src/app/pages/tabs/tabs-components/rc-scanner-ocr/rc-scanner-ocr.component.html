@@ -1,0 +1,77 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>
+			Scanner
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-grid>
+		<ion-row class="ion-padding">
+			<ion-col class="flexbox">
+				<ion-item class="fullwidth">
+					<ion-label position="floating">Supermarket</ion-label>
+					<ion-select [value]="supermarket"
+								(ionChange)="onIonChange($event)">
+						<ion-select-option *ngFor="let sm of supermarkets"
+										   [value]="sm"> {{ sm }} </ion-select-option>
+					</ion-select>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+		<ion-row class="ion-padding">
+			<ion-col class="flexbox">
+				<ion-button expand="full"
+							(click)="selectSource()">Take Snap</ion-button>
+			</ion-col>
+			<ion-col class="flexbox">
+				<ion-button expand="full"
+							(click)="recognizeImage()"
+							[disabled]="!snapPath">Recognize Image</ion-button>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col class="flexbox">
+				<img *ngIf="snapPath"
+					 [src]="snapPath"
+					 style="object-fit: cover;">
+				<ion-spinner *ngIf="!dataLoaded"
+							 name="dots"></ion-spinner>
+			</ion-col>
+		</ion-row>
+		<!-- <ion-row>
+			<ion-col class="flexbox">
+				<ion-button (click)="onFakeScan()">FAKE SCAN</ion-button>
+			</ion-col>
+		</ion-row> -->
+		<!-- <ion-row *ngIf="ocrRecognition">
+			<ion-col class="flexbox">
+				<ul>
+					<li *ngFor="let line of ocrRecognition.lines.linetex"> {{ line }} </li>
+				</ul>
+			</ion-col>
+		</ion-row>
+		<ion-row *ngIf="scannedProducts">
+			<ion-col class="flexbox">
+				<ul>
+					<li *ngFor="let product of scannedProducts"> {{ product.quantity }} - {{ product.name }} </li>
+				</ul>
+			</ion-col>
+		</ion-row> -->
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<ion-button expand="block"
+							color="light"
+							(click)="onClose()">
+					CLOSE
+				</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-footer>

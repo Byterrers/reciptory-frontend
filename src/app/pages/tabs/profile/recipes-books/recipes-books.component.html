@@ -1,0 +1,43 @@
+<ion-grid *ngIf="dataLoaded && matrix"
+          class="fullwidth">
+  <ion-row *ngFor="let row of matrix"
+           class="ion-no-padding">
+    <ion-col *ngFor="let recipesBook of row"
+             class="flexbox ion-padding">
+      <div class="rc-card fullwidth">
+        <div class="rc-card__header">
+          <ion-text>
+            <h6> {{ recipesBook.name }} </h6>
+          </ion-text>
+        </div>
+        <!-- <div class="rc-card__container--bordered">
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+              <ion-col *ngFor="let recipe of recipesBook.recipes"
+                       size="6">
+                <img style="object-fit: cover; height: 100%; width: 100%;"
+                     [src]="getImage(recipe.image)">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div> -->
+        <div class="rc-card__footer">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block"
+                            [disabled]="!isPrivate"
+                            (click)="recipesBookPresent(recipesBook, true)">EDIT</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button expand="block"
+                            [disabled]="!isPrivate"
+                            (click)="recipesBookPresent(recipesBook, false)">ADMINISTRATE</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

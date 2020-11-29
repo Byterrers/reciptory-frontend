@@ -1,0 +1,112 @@
+<ion-content class="ion-no-padding">
+    <ion-grid *ngIf="userInfo"
+              class="rc-profile__profile">
+        <ion-row>
+            <ion-col class="flexbox ion-padding"
+                     size-xs="5"
+                     size-sm="3"
+                     size-md="2"
+                     size-lg="2">
+                <img [src]="getAvatar(userInfo.avatar)"
+                     style="object-fit: cover; box-shadow: inset 0 0 30px 0px rgba(0, 0, 0, 0.75); border-radius: 50%" />
+            </ion-col>
+            <ion-col class="flexbox ion-padding">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-text>
+                                <h6><strong>{{ userInfo.username }}</strong></h6>
+                            </ion-text>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="userInfo.name">
+                        <ion-col>
+                            <ion-text color="dark">
+                                <h6>{{ userInfo.name }}</h6>
+                            </ion-text>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="userInfo.city && userInfo.country">
+                        <ion-col>
+                            <ion-text color="dark">
+                                <h6>{{ userInfo.city }}, {{ userInfo.country }} </h6>
+                            </ion-text>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-grid class="ion-no-padding">
+                                <ion-row class="ion-no-padding">
+                                    <ion-col class="ion-no-padding">
+                                        <ion-text>
+                                            <h6>Followers</h6>
+                                        </ion-text>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="ion-no-padding">
+                                    <ion-col class="ion-no-padding"> {{ userInfo.followers.length }} </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-col>
+                        <ion-col>
+                            <ion-grid class="ion-no-padding">
+                                <ion-row class="ion-no-padding">
+                                    <ion-col class="ion-no-padding">
+                                        <ion-text>
+                                            <h6>Following</h6>
+                                        </ion-text>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="ion-no-padding">
+                                    <ion-col class="ion-no-padding"> {{ userInfo.following.length }} </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+            <ion-col class="ion-no-padding"
+                     size-xs="0"
+                     size-sm="2"
+                     size-md="3"
+                     size-lg="4">
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!isPrivate"
+                 class="ion-no-padding">
+            <ion-col class="ion-no-padding">
+                <ion-button color="light"
+                            expand="block"
+                            (click)="onFollowUnfollow()">
+                    {{ followText }}
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-toolbar>
+        <ion-segment (ionChange)="segmentChanged()"
+                     [(ngModel)]="segment">
+            <ion-segment-button value="0">
+                <ion-label>Recipes</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="1">
+                <ion-label>Recipes Books</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+    <ion-slides #slides
+                (ionSlideDidChange)="slideChanged()">
+        <ion-slide class="flexbox--column ion-padding">
+            <rc-matrix *ngIf="dataLoaded"
+                       [items]="recipes"
+                       [cols]="3"
+                       (onItemClick)="presentRecipeModal($event)"></rc-matrix>
+        </ion-slide>
+        <ion-slide>
+            <recipes-books #recipesBooks
+                           [userId]="userId"
+                           [isPrivate]="isPrivate"></recipes-books>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

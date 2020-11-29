@@ -1,0 +1,26 @@
+<ion-grid *ngIf="matrix.length === 0">
+  <ion-row>
+    <ion-col class="flexbox">
+      <ion-label>
+        <ion-text>
+          <h6>
+            No recipes!
+          </h6>
+        </ion-text>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid *ngIf="matrix && dataLoaded"
+          class="rc-matrix">
+  <ion-row *ngFor="let row of matrix"
+           class="ion-no-padding">
+    <ion-col *ngFor="let item of row"
+             class="flexbox">
+      <img style="object-fit: cover; height: 100%; width: 100%;"
+           class="rc-matrix__image"
+           [src]="getImage(item.image)"
+           (click)="onImageClick(item.id)" />
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,283 @@
+.rc-padding-lg {
+  padding: 1rem;
+}
+
+.rc-padding-md {
+  padding: 0.75rem;
+}
+
+.rc-padding-md--top {
+  padding-top: 0.75rem;
+}
+
+.rc-padding-sm {
+  padding: 0.5rem;
+}
+
+/* General */
+
+.rc-recipe-image {
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* #startregion TABS */
+
+.rc-tabs {
+}
+
+.rc-tabs__tab {
+  width: 100%;
+  color: var(--ion-color-dark);
+  text-decoration: none;
+}
+
+.rc-tabs__tab--selected {
+  color: var(--ion-color-secondary);
+}
+
+/* #endregion TABS */
+
+/* #startregion CARD */
+
+rc-card {
+  width: 100%;
+}
+
+.rc-card ion-item {
+  --background: var(--ion-color-primary-contrast);
+  width: 100%;
+}
+
+.rc-card {
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 2px 2px 4px var(--ion-color-medium);
+}
+
+.rc-card__header {
+  padding: 1rem;
+}
+
+.rc-card__header__title {
+  padding: 0 0.75rem;
+  margin: 0px;
+}
+
+.rc-card__header__icon {
+  padding: 0 0.75rem;
+  font-size: 125%;
+}
+
+.rc-card__header__icon__warning {
+  padding: 0 0.75rem;
+  font-size: 100%;
+}
+
+.rc-card__container {
+  width: 100%;
+}
+
+.rc-card__container--bordered {
+  width: 100%;
+  border-top: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
+}
+
+.rc-card__container ion-list {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.rc-card__container__item {
+}
+
+.rc-card__container__item .item-highlight {
+  display: none;
+}
+
+.rc-card__container__item__reorder {
+  padding: 0.75rem;
+}
+
+.rc-card__footer {
+  padding: 1rem;
+  border-radius: 0px 0px 8px 8px;
+  background-color: var(--ion-color-light-tint);
+}
+
+/* #endregion CARD */
+
+/* #region CARD-ITEM */
+
+rc-card-item {
+  width: 100%;
+}
+
+/* #endregion CARD-ITEM */
+
+/* #startregion MATRIX */
+
+rc-matrix {
+  width: 100%;
+  background-color: var(--ion-color-light-tint);
+}
+
+.rc-matrix {
+}
+
+.rc-matrix ion-row {
+  height: 33%;
+}
+
+.rc-matrix ion-col {
+}
+
+.rc-matrix__image {
+  border-radius: 10px;
+  box-shadow: inset 0 0 30px 0px #000000;
+  cursor: pointer;
+}
+
+.rc-matrix__image:hover {
+  opacity: 0.8;
+}
+
+/* #endregion MATRIX */
+
+/* #startregion PROFILE-OVERVIEW */
+
+.rc-profile-overview {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.rc-profile-overview__text {
+  padding: 5px 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+}
+
+.rc-profile-overview__username {
+  padding-bottom: 5px;
+  margin: 0px;
+  line-height: 1.2;
+  font-size: 21px;
+  color: #2a2a2a;
+}
+
+.rc-profile-overview__details {
+  margin: 0px;
+  line-height: 1.2;
+  font-size: 16px;
+  color: #8a8a8a;
+}
+
+/* #endregion PROFILE-OVERVIEW */
+
+/* #startregion INVENTORY */
+
+rc-inventory {
+  width: 100%;
+}
+
+/* #endregion INVENTORY */
+
+/* #startregion SHOPPING-LIST */
+
+rc-shopping-list {
+  width: 100%;
+}
+
+.rc-shopping-list__item {
+  width: 100%;
+}
+
+/* #endregion SHOPPING-LIST */
+
+/* #startregion TIMELINE */
+
+.rc-timeline {
+  width: 100%;
+}
+
+.rc-timeline__title {
+  padding: 10px 0px;
+  margin: 0px;
+  letter-spacing: 3px;
+}
+
+.rc-timeline__event {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rc-timeline__event__user-avatar {
+}
+
+.rc-timeline__event__content {
+  padding: 10px;
+  margin: 0px;
+  line-height: 1.2;
+  color: #2a2a2a;
+}
+
+.rc-timeline__event__event-image {
+}
+
+/* #endregion TIMELINE */
+
+/* #startregion RECIPE */
+
+.rc-recipe {
+}
+
+.rc-recipe__header {
+  width: 100vw;
+  height: 250px;
+}
+
+.rc-recipe__header__image {
+  height: 100%;
+  width: 100%;
+}
+
+/* .rc-recipe__header__image > input {
+  display: none;
+} */
+
+.rc-recipe__header__image-selector {
+  height: 100%;
+  width: 100%;
+}
+
+.rc-recipe__header__img {
+  width: 100%;
+  height: 100%;
+}
+
+.rc-recipe__header__image-upload {
+  position: absolute;
+  bottom: 10px;
+}
+
+/* #endregion RECIPE */
+
+/* #startregion RECIPESBOOK */
+
+recipes-books {
+  width: 100%;
+}
+
+/* #endregion RECIPESBOOK */
+
+/* #startregion PROFILE */
+
+/* #endregion PROFILE */

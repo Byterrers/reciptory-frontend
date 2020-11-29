@@ -1,0 +1,7 @@
+{
+  "name": "pro01-pin-frontend",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

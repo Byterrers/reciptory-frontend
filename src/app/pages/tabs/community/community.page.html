@@ -1,0 +1,49 @@
+<ion-content>
+    <ion-refresher #refresher
+                   slot="fixed"
+                   (ionRefresh)="refresh()">
+        <ion-refresher-content pullingIcon="arrow-down"
+                               pullingText="Pull to refresh"
+                               refreshingSpinner="dots"
+                               refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-grid *ngIf="dataLoaded && timeline"
+              class="rc-timeline">
+        <ion-row>
+            <ion-col>
+                <p class="rc-timeline__title"><strong>TIMELINE</strong></p>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let event of timeline">
+            <ion-col>
+                <div class="rc-timeline__event">
+                    <img class="rc-timeline__event__user-avatar"
+                         style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.75);"
+                         [src]="getAvatar(event.avatar)"
+                         [routerLink]="['/app/public-profile', event.userId]" />
+                    <p class="rc-timeline__event__content">
+                        {{ event.content }}
+                    </p>
+                    <img class="rc-timeline__event__event-image"
+                         style="width: 64px; height: 64px; object-fit: cover; box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.75);"
+                         [src]="getImage(event.image)"
+                         (click)="presentRecipeModal(event.recipeId)" />
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="dataLoaded && !timeline"
+              class="rc-timeline">
+        <ion-row>
+            <ion-col>
+                <p class="rc-timeline__title"><strong>TIMELINE</strong></p>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <p> Follow new friends to keep track of their interactions! </p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

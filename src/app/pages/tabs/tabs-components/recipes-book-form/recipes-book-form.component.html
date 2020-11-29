@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Recipes Book
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="recipesBookForm"
+        (submit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item class="ion-padding-horizontal">
+            <ion-label position="floating">
+              Name
+            </ion-label>
+            <ion-input type="text"
+                       formControlName="name"> </ion-input>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of errorMessages.name">
+              <div class="error-message ion-padding ion-padding"
+                   *ngIf="recipesBookForm.get('name').hasError(error.type) &&
+                                      (recipesBookForm.get('name').dirty ||
+                                      recipesBookForm.get('name').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row *ngFor="let recipe of recipesBookRecipes.controls; let i=index"
+               formArrayName="recipesBookRecipes">
+        <ion-text class="flexbox fullwidth ion-padding-top"
+                  color="dark">
+          <h6 class="ion-padding-horizontal"> Recipe {{ i + 1 }} </h6>
+        </ion-text>
+        <ion-col>
+          <ion-item class="ion-padding-horizontal">
+            <ion-label position="floating">
+              Recipes
+            </ion-label>
+            <ionic-selectable [formControlName]="i"
+                              itemValueField="id"
+                              itemTextField="name"
+                              canSearch="true"
+                              [items]="recipes"
+                              [isEnabled]="insert || !insert && !recipesBook.favorite"
+                              (onSearch)="onSearchRecipes($event)">
+            </ionic-selectable>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of errorMessages.recipesBookrecipes">
+              <div class="error-message ion-padding"
+                   *ngIf="recipesBookForm.get('recipesBookrecipes').hasError(error.type) &&
+                                                    (recipesBookForm.get('recipesBookrecipes').dirty ||
+                                                    recipesBookForm.get('recipesBookrecipes').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="insert || (!insert && !recipesBook.favorite)"
+                 size-xs="12"
+                 size-sm="2"
+                 size-md="2"
+                 size-lg="2"
+                 class="flexbox">
+          <ion-fab-button class="ion-no-padding"
+                          size="small"
+                          color="danger"
+                          (click)="removeRecipesBookRecipe(i)">
+            <ion-icon name="remove"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="insert || (!insert && !recipesBook.favorite)">
+        <ion-col class="flexbox">
+          <ion-button color="primary"
+                      (click)="addRecipesBookRecipes()">
+            ADD RECIPE
+          </ion-button>
+        </ion-col>
+      </ion-row> -->
+      <!-- <ion-row>
+        <ion-col>
+          <ion-item class="ion-padding-horizontal"
+                    lines="none">
+            <ion-label>
+              Favorite
+            </ion-label>
+            <ion-toggle formControlName="favorite">
+            </ion-toggle>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of errorMessages.favorite">
+              <div class="error-message ion-padding"
+                   *ngIf="recipesBookForm.get('favorite').hasError(error.type) &&
+                                    (recipesBookForm.get('favorite').dirty ||
+                                    recipesBookForm.get('favorite').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block"
+                    color="light"
+                    (click)="onClose()">
+          CANCEL
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="!insert && !recipesBook.favorite">
+        <ion-button expand="block"
+                    color="danger"
+                    (click)="onDeleteRecipesBook(recipesBook.id)">
+          DELETE BOOK
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <form [formGroup]="recipesBookForm"
+              (submit)="onSubmit()">
+          <ion-button type="submit"
+                      expand="block"
+                      color="primary"
+                      [disabled]="!recipesBookForm.valid || !recipesBookForm.dirty">
+            CONFIRM
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

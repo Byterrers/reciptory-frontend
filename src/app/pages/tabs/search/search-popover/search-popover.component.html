@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-title class="ion-padding-vertical"
+             size="medium">
+    Filter by
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-checkbox color="primary"
+                  size="small"
+                  [checked]="byInventory"
+                  (ionChange)="changeByInventory($event)"></ion-checkbox>
+    <ion-label class="ion-padding-horizontal">Inventory</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-checkbox color="primary"
+                  size="small"
+                  [checked]="byPreferences"
+                  (ionChange)="changeByPreferences($event)"></ion-checkbox>
+    <ion-label class="ion-padding-horizontal">Preferences</ion-label>
+  </ion-item>
+  <ion-item>
+      <ion-checkbox color="primary"
+                    size="small"
+                    [checked]="byAllergies"
+                    (ionChange)="changeByAllergies($event)"></ion-checkbox>
+      <ion-label class="ion-padding-horizontal">Allergies</ion-label>
+    </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-no-padding">
+        <ion-button expand="block"
+                    fill="clear"
+                    (click)="onClose()">
+          CLOSE
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-no-padding">
+        <ion-button expand="block"
+                    fill="clear"
+                    (click)="onAccept()">
+          ACCEPT
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

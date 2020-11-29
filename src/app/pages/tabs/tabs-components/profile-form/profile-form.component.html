@@ -1,0 +1,160 @@
+<ion-header>
+   <ion-toolbar>
+      <ion-grid>
+         <ion-row class="flexbox--row--space-between">
+            <ion-button color="light"
+                        (click)="onClose()">
+               <ion-icon name="close"></ion-icon>
+            </ion-button>
+            <strong>Edit your profile</strong>
+            <form [formGroup]="editForm"
+                  (submit)="onSubmit()">
+               <ion-button type="submit"
+                           [disabled]="!editForm.valid  || !editForm.dirty">
+                  <ion-icon name="checkmark"></ion-icon>
+               </ion-button>
+            </form>
+         </ion-row>
+      </ion-grid>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+   <ion-grid class="ion-no-padding">
+      <ion-row>
+         <ion-col class="flexbox">
+            <img *ngIf="isMobile"
+                 style="width: 120px; height: 120px; object-fit: cover; box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.75); border-radius: 50%;"
+                 [src]="getAvatar(userInfo.avatar)"
+                 (click)="imageSelector()" />
+            <label *ngIf="!isMobile"
+                   for="image-input">
+               <img [src]="getAvatar(userInfo.avatar)"
+                    style="width: 120px; height: 120px; object-fit: cover; box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.75); border-radius: 50%;" />
+            </label>
+            <input id="image-input"
+                   style="display: none"
+                   type="file"
+                   (change)="onChange($event)" />
+         </ion-col>
+      </ion-row>
+      <ion-row>
+         <ion-col class="flexbox">
+            <ion-button (click)="imageSelector()">
+               CHANGE PICTURE
+            </ion-button>
+         </ion-col>
+      </ion-row>
+      <form [formGroup]="editForm"
+            (submit)="onSubmit()">
+         <ion-row>
+            <ion-col>
+               <ion-item>
+                  <ion-label position="floating">
+                     Name
+                  </ion-label>
+                  <ion-input type="text"
+                             formControlName="name">
+                  </ion-input>
+               </ion-item>
+               <div class="error-messages">
+                  <ng-container *ngFor="let error of errorMessages.name">
+                     <div class="error-message ion-padding ion-padding"
+                          *ngIf="editForm.get('name').hasError(error.type) &&
+                                           (editForm.get('name').dirty ||
+                                           editForm.get('name').touched)">
+                        {{ error.message }}
+                     </div>
+                  </ng-container>
+               </div>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col>
+               <ion-item>
+                  <ion-label position="floating">
+                     Username
+                  </ion-label>
+                  <ion-input type="text"
+                             formControlName="username">
+                  </ion-input>
+               </ion-item>
+               <div class="error-messages">
+                  <ng-container *ngFor="let error of errorMessages.username">
+                     <div class="error-message ion-padding ion-padding"
+                          *ngIf="editForm.get('username').hasError(error.type) &&
+                                           (editForm.get('username').dirty ||
+                                           editForm.get('username').touched)">
+                        {{ error.message }}
+                     </div>
+                  </ng-container>
+               </div>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col>
+               <ion-item>
+                  <ion-label position="floating">
+                     Country
+                  </ion-label>
+                  <ion-input type="text"
+                             formControlName="country">
+                  </ion-input>
+               </ion-item>
+               <div class="error-messages">
+                  <ng-container *ngFor="let error of errorMessages.country">
+                     <div class="error-message ion-padding ion-padding"
+                          *ngIf="editForm.get('country').hasError(error.type) &&
+                                           (editForm.get('country').dirty ||
+                                           editForm.get('country').touched)">
+                        {{ error.message }}
+                     </div>
+                  </ng-container>
+               </div>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col>
+               <ion-item>
+                  <ion-label position="floating">
+                     City
+                  </ion-label>
+                  <ion-input type="text"
+                             formControlName="city"></ion-input>
+               </ion-item>
+               <div class="error-messages">
+                  <ng-container *ngFor="let error of errorMessages.city">
+                     <div class="error-message ion-padding ion-padding"
+                          *ngIf="editForm.get('city').hasError(error.type) &&
+                                              (editForm.get('city').dirty ||
+                                              editForm.get('city').touched)">
+                        {{ error.message }}
+                     </div>
+                  </ng-container>
+               </div>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col>
+               <ion-item>
+                  <ion-label position="floating">
+                     Gender
+                  </ion-label>
+                  <ion-input type="text"
+                             formControlName="gender"></ion-input>
+               </ion-item>
+               <div class="error-messages">
+                  <ng-container *ngFor="let error of errorMessages.gender">
+                     <div class="error-message ion-padding ion-padding"
+                          *ngIf="editForm.get('gender').hasError(error.type) &&
+                                              (editForm.get('gender').dirty ||
+                                              editForm.get('gender').touched)">
+                        {{ error.message }}
+                     </div>
+                  </ng-container>
+               </div>
+            </ion-col>
+         </ion-row>
+      </form>
+   </ion-grid>
+</ion-content>

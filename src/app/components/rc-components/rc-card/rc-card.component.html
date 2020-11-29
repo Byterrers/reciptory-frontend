@@ -1,0 +1,39 @@
+<div class="rc-card">
+  <div class="rc-card__header flexbox--row--space-between">
+    <ion-icon class="rc-card__header__icon"
+              [name]="icon"></ion-icon>
+    <ion-title class="rc-card__header__title">
+      <ion-text>{{ title }}</ion-text>
+    </ion-title>
+    <div *ngIf="anyItemAboutToExpire !== 1"
+         style="position: relative; bottom: 9px; right: 25px;">
+      <ion-icon style="position: absolute;"
+                class="rc-card__header__icon__warning"
+                fill="clear"
+                [color]="anyItemAboutToExpire === 0 ? 'warning' : 'danger'"
+                name="alert"></ion-icon>
+    </div>
+    <ion-button class="rc-card__header__arrow swiper-no-swiping"
+                fill="clear"
+                size="small"
+                (click)="onDisplay()">
+      <ion-icon [name]="open ? 'arrow-down' : 'arrow-back'"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="rc-card__container">
+    <ion-list *ngIf="open">
+      <ion-reorder-group *ngIf="items"
+                         (ionItemReorder)="doReorder($event)"
+                         disabled="false">
+        <ion-item *ngFor="let item of items"
+                  class="ion-no-padding">
+          <rc-card-item [item]="item"
+                        [units]="units"
+                        (reloadData)="onReloadData($event)"></rc-card-item>
+        </ion-item>
+      </ion-reorder-group>
+    </ion-list>
+  </div>
+  <div *ngIf="open"
+       class="rc-card__footer"></div>
+</div>

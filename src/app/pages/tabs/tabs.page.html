@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-router-outlet main></ion-router-outlet>
+</ion-content>
+
+<ion-footer>
+  <nav class="rc-tabs flexbox--row--space-around">
+    <a class="rc-tabs__tab flexbox--column"
+       [routerLink]="['/app/home']"
+       [routerLinkActive]="['rc-tabs__tab--selected']">
+      <ion-icon name="home"
+                size="large"></ion-icon>
+    </a>
+    <a class="rc-tabs__tab flexbox--column"
+       [routerLink]="['/app/search']"
+       [routerLinkActive]="['rc-tabs__tab--selected']">
+      <ion-icon name="search"
+                size="large"></ion-icon>
+    </a>
+    <ion-button shape="round"
+                fill="clear"
+                (click)="presentActionSheet()">
+      <ion-icon name="add-circle"
+                size="large"></ion-icon>
+    </ion-button>
+    <a class="rc-tabs__tab flexbox--column"
+       [routerLink]="['/app/community']"
+       [routerLinkActive]="['rc-tabs__tab--selected']"
+       (click)="onCommunity()">
+      <ion-icon name="globe"
+                size="large"></ion-icon>
+    </a>
+    <a class="rc-tabs__tab flexbox--column"
+       [routerLink]="['/app/profile']"
+       [routerLinkActive]="['rc-tabs__tab--selected']"
+       (click)="onProfile()">
+      <ion-icon name="person"
+                size="large"></ion-icon>
+    </a>
+  </nav>
+</ion-footer>
+
+<ion-menu side="end"
+          swipeGesture="true"
+          type="push">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item lines="none"
+                button="true"
+                (click)="presentEditProfileModal()">
+        <ion-icon name="person"
+                  slot="start"></ion-icon>
+        <ion-label>Edit your profile</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="key"
+                  slot="start"></ion-icon>
+        <ion-label>Password</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="star"
+                  slot="start"></ion-icon>
+        <ion-label>Preferences</ion-label>
+        <ion-select multiple=true
+                    [value]="loggedUserPreferences"
+                    [compareWith]="compareWith"
+                    (ionChange)="onPreferenceChange($event)">
+          <ion-select-option *ngFor="let preference of preferences"
+                             [value]="preference">
+            {{ preference.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="bug"
+                  slot="start"></ion-icon>
+        <ion-label>Allergies</ion-label>
+        <ion-select multiple=true
+                    [value]="loggedUserAllergies"
+                    [compareWith]="compareWith"
+                    (ionChange)="onAllergyChange($event)">
+          <ion-select-option *ngFor="let allergy of allergies"
+                             [value]="allergy">
+            {{ allergy.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item-divider></ion-item-divider>
+      <ion-item lines="none"
+                button="true"
+                (click)="onLogout()">
+        <ion-icon name="log-out"
+                  slot="start"></ion-icon>
+        <ion-label>Log out</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
